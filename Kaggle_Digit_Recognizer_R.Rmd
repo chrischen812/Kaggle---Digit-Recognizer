@@ -10,8 +10,8 @@ library (tidyverse)
 ```
 
 ```{r }
-df.train=read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle - Digit Recognizer/train.csv')
-df.test=data.matrix (read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle - Digit Recognizer/test.csv'))
+df.train=read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/train.csv')
+df.test=data.matrix (read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/test.csv'))
 ```
 
 ```{r }
@@ -182,7 +182,7 @@ Label=as.data.frame (as.vector (pred))
 ```
 
 ```{r }
-df.test=(read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle - Digit Recognizer/test.csv'))
+df.test=(read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/test.csv'))
 ImageId=as.data.frame(1:nrow(df.test))
 submission<-as.data.frame(cbind(ImageId,Label))
 colnames (submission)=c('ImageId','Label')
