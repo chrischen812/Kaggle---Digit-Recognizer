@@ -1,0 +1,200 @@
+---
+title: "Kaggle_Digit_Recognizer"
+author: "Christopher Chen"
+date: "2024-09-15"
+output: html_document
+---
+
+```{r  }
+library (tidyverse)
+```
+
+```{r }
+df.train=read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle - Digit Recognizer/train.csv')
+df.test=data.matrix (read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle - Digit Recognizer/test.csv'))
+```
+
+```{r }
+library(keras)
+
+mnist <- dataset_mnist()
+train_images <- mnist$train$x
+train_labels <- mnist$train$y
+test_images <- mnist$test$x
+test_labels <- mnist$test$y
+```
+
+```{r }
+digit <- train_images[5,,]
+plot(as.raster(digit, max = 255))
+```
+
+```{r }
+# Reshape datasets in Keras
+train_images <- array_reshape(train_images, c(60000, 28 * 28))
+#train_images=train_images %>% normalize()
+train_images <- train_images / 255
+
+test_images <- array_reshape(test_images, c(10000, 28 * 28))
+#test_images=test_images %>% normalize()
+test_images <- test_images / 255
+```
+
+```{r }
+train_labels <- to_categorical(train_labels)
+test_labels <- to_categorical(test_labels)
+```
+
+```{r }
+str (train_images)
+```
+
+```{r }
+network <- keras_model_sequential() %>%
+  layer_dense(units = 512, activation = "relu", input_shape = c(784)) %>%
+  layer_dense(units = 10, activation = "softmax")
+```
+
+```{r }
+network %>% compile(
+  optimizer = "rmsprop",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+```
+
+```{r }
+network %>% fit(train_images, train_labels, epochs = 5, batch_size = 128)
+```
+
+```{r }
+metrics <- network %>% evaluate(test_images, test_labels)
+metrics
+```
+
+```{r }
+history <- network %>% fit(
+  train_images,
+  train_labels,
+  epochs = 20,
+  batch_size = 128,
+  validation_data = list(test_images, test_labels)
+)
+```
+
+```{r }
+plot (history)
+```
+
+```{r }
+network %>% predict(test_images[1:10,]) %>% k_argmax()
+```
+
+```{r }
+convnet <- keras_model_sequential() %>%
+  layer_conv_2d(filters = 32, kernel_size = c(3, 3), activation = "relu",
+                input_shape = c(28, 28, 1)) %>%
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>%
+  layer_conv_2d(filters = 64, kernel_size = c(3, 3), activation = "relu") %>%
+  layer_max_pooling_2d(pool_size = c(2, 2)) %>%
+  layer_conv_2d(filters = 64, kernel_size = c(3, 3), activation = "relu")
+```
+
+```{r }
+convnet
+```
+
+```{r }
+convnet <- convnet %>%
+  layer_flatten() %>%
+  layer_dense(units = 64, activation = "relu") %>%
+  layer_dense(units = 10, activation = "softmax")
+```
+
+```{r }
+convnet
+```
+
+```{r }
+# Pay attention the tensor is different
+mnist <- dataset_mnist()
+c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
+train_images <- array_reshape(train_images, c(60000, 28, 28, 1))
+train_images <- train_images / 255
+test_images <- array_reshape(test_images, c(10000, 28, 28, 1))
+test_images <- test_images / 255
+train_labels <- to_categorical(train_labels)
+test_labels <- to_categorical(test_labels)
+convnet %>% compile(
+  optimizer = "rmsprop",
+  loss = "categorical_crossentropy",
+  metrics = c("accuracy")
+)
+convnet  %>% fit(
+  train_images, train_labels,
+  epochs = 20, batch_size=64
+)
+
+```
+
+```{r }
+results <- convnet %>% evaluate(test_images, test_labels)
+results
+```
+
+```{r }
+history <- convnet %>% fit(
+  train_images,
+  train_labels,
+  epochs = 20,
+  batch_size = 64,
+  validation_data = list(test_images, test_labels)
+)
+```
+
+```{r }
+plot (history)
+```
+
+```{r }
+test=df.test/255
+dim(test)<-c(nrow(test),784)
+```
+
+```{r }
+dim(test)
+```
+
+```{r }
+convnet_test=array_reshape (test, c(28000, 28, 28,1))
+```
+
+```{r }
+pred=convnet %>% predict(convnet_test) %>% k_argmax()
+```
+
+```{r }
+pred
+```
+
+```{r }
+Label=as.data.frame (as.vector (pred))
+```
+
+```{r }
+df.test=(read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle - Digit Recognizer/test.csv'))
+ImageId=as.data.frame(1:nrow(df.test))
+submission<-as.data.frame(cbind(ImageId,Label))
+colnames (submission)=c('ImageId','Label')
+
+
+write.csv(submission, file="submission.csv", row.names=F)
+```
+
+```{r }
+head (submission)
+```
+
+```{r }
+
+```
