@@ -27,6 +27,7 @@ test_labels <- mnist$test$y
 ```{r }
 digit <- train_images[5,,]
 plot(as.raster(digit, max = 255))
+
 ```
 
 ```{r }
@@ -76,7 +77,7 @@ metrics
 history <- network %>% fit(
   train_images,
   train_labels,
-  epochs = 20,
+  epochs = 5,
   batch_size = 128,
   validation_data = list(test_images, test_labels)
 )
