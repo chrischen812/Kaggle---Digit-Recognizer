@@ -133,7 +133,7 @@ convnet %>% compile(
 )
 convnet  %>% fit(
   train_images, train_labels,
-  epochs = 20, batch_size=64
+  epochs = 5, batch_size=64
 )
 
 ```
@@ -147,7 +147,7 @@ results
 history <- convnet %>% fit(
   train_images,
   train_labels,
-  epochs = 20,
+  epochs = 5,
   batch_size = 64,
   validation_data = list(test_images, test_labels)
 )
