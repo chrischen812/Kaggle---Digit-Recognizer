@@ -65,7 +65,7 @@ network %>% compile(
 ```
 
 ```{r }
-network %>% fit(train_images, train_labels, epochs = 15, batch_size = 128)
+network %>% fit(train_images, train_labels, epochs = 25, batch_size = 128)
 ```
 
 ```{r }
@@ -77,7 +77,7 @@ metrics
 history <- network %>% fit(
   train_images,
   train_labels,
-  epochs = 15,
+  epochs = 25,
   batch_size = 128,
   validation_data = list(test_images, test_labels)
 )
@@ -133,7 +133,7 @@ convnet %>% compile(
 )
 convnet  %>% fit(
   train_images, train_labels,
-  epochs = 15, batch_size=64
+  epochs = 25, batch_size=64
 )
 
 ```
@@ -147,7 +147,7 @@ results
 history <- convnet %>% fit(
   train_images,
   train_labels,
-  epochs = 15,
+  epochs = 25,
   batch_size = 64,
   validation_data = list(test_images, test_labels)
 )
