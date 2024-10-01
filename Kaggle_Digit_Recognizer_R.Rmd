@@ -57,15 +57,18 @@ network <- keras_model_sequential() %>%
 ```
 
 ```{r }
+Learning_Rate = .01
+opt=optimizer_adamax(learning_rate = Learning_Rate)
 network %>% compile(
-  optimizer = "rmsprop",
+  optimizer = opt,
   loss = "categorical_crossentropy",
   metrics = c("accuracy")
 )
+
 ```
 
 ```{r }
-network %>% fit(train_images, train_labels, epochs = 20, batch_size = 128)
+network %>% fit(train_images, train_labels, epochs = 10, batch_size = 128)
 ```
 
 ```{r }
@@ -77,7 +80,7 @@ metrics
 history <- network %>% fit(
   train_images,
   train_labels,
-  epochs = 20,
+  epochs = 10,
   batch_size = 128,
   validation_data = list(test_images, test_labels)
 )
@@ -133,7 +136,7 @@ convnet %>% compile(
 )
 convnet  %>% fit(
   train_images, train_labels,
-  epochs = 20, batch_size=64
+  epochs = 10, batch_size=64
 )
 
 ```
@@ -147,7 +150,7 @@ results
 history <- convnet %>% fit(
   train_images,
   train_labels,
-  epochs = 20,
+  epochs = 10,
   batch_size = 64,
   validation_data = list(test_images, test_labels)
 )
