@@ -53,7 +53,7 @@ str (train_images)
 
 ```{r }
 network <- keras_model_sequential() %>%
-  layer_dense(units = 512, activation = "relu", input_shape = c(784)) %>%
+  layer_dense(units = 256, activation = "relu", input_shape = c(784)) %>%
   layer_dense(units = 10, activation = "softmax")
 ```
 
@@ -65,7 +65,6 @@ network %>% compile(
   loss = "categorical_crossentropy",
   metrics = c("accuracy")
 )
-
 ```
 
 ```{r }
