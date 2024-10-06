@@ -58,8 +58,8 @@ network <- keras_model_sequential() %>%
 ```
 
 ```{r }
-Learning_Rate = .01
-opt=optimizer_adamax(learning_rate = Learning_Rate)
+Learning_Rate = .001
+opt=optimizer_adam(learning_rate = Learning_Rate)
 network %>% compile(
   optimizer = opt,
   loss = "categorical_crossentropy",
@@ -122,8 +122,8 @@ convnet
 ```
 
 ```{r }
-Learning_Rate = .01
-opt=optimizer_adamax(learning_rate = Learning_Rate)
+Learning_Rate = .001
+opt=optimizer_adam(learning_rate = Learning_Rate)
 # Pay attention the tensor is different
 mnist <- dataset_mnist()
 c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
