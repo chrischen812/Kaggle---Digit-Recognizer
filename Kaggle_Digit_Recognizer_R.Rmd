@@ -26,7 +26,7 @@ test_labels <- mnist$test$y
 ```
 
 ```{r }
-digit <- train_images[5,,]
+digit <- train_images[45,,]
 plot(as.raster(digit, max = 255))
 
 ```
@@ -59,7 +59,7 @@ network <- keras_model_sequential() %>%
 
 ```{r }
 Learning_Rate = .001
-opt=optimizer_adam(learning_rate = Learning_Rate)
+opt=optimizer_adamax(learning_rate = Learning_Rate)
 network %>% compile(
   optimizer = opt,
   loss = "categorical_crossentropy",
@@ -68,7 +68,7 @@ network %>% compile(
 ```
 
 ```{r }
-network %>% fit(train_images, train_labels, epochs = 20, batch_size = 128)
+network %>% fit(train_images, train_labels, epochs = 15, batch_size = 128)
 ```
 
 ```{r }
@@ -80,7 +80,7 @@ metrics
 history <- network %>% fit(
   train_images,
   train_labels,
-  epochs = 20,
+  epochs = 15,
   batch_size = 128,
   validation_data = list(test_images, test_labels)
 )
@@ -123,7 +123,7 @@ convnet
 
 ```{r }
 Learning_Rate = .001
-opt=optimizer_adam(learning_rate = Learning_Rate)
+opt=optimizer_adamax(learning_rate = Learning_Rate)
 # Pay attention the tensor is different
 mnist <- dataset_mnist()
 c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
@@ -141,7 +141,7 @@ convnet %>% compile(
 convnet  %>% fit(
   train_images, 
   train_labels,
-  epochs = 20, batch_size=64
+  epochs = 15, batch_size=64
 )
 
 ```
@@ -155,7 +155,7 @@ results
 history <- convnet %>% fit(
   train_images,
   train_labels,
-  epochs = 20,
+  epochs = 15,
   batch_size = 64,
   validation_data = list(test_images, test_labels)
 )
