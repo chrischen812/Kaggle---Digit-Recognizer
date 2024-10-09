@@ -58,7 +58,7 @@ network <- keras_model_sequential() %>%
 ```
 
 ```{r }
-Learning_Rate = .001
+Learning_Rate = .0005
 opt=optimizer_adamax(learning_rate = Learning_Rate)
 network %>% compile(
   optimizer = opt,
