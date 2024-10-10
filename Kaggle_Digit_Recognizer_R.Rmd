@@ -204,6 +204,85 @@ write.csv(submission, file="submission.csv", row.names=F)
 head (submission)
 ```
 
+
+#Callback Functions
+```{r }
+#Early stopping
+cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 5)
+
+#CSV Logging
+version <- format(Sys.time(), "%Y%m%d%H%M")
+cb_csv_log <- callback_csv_logger(paste0("C:/Users/chris/Documents/Projects/GitHub R/SOA PA - Hackathon - 20230324/Log_Dir/log_", version ,".csv"), separator= ",", append = FALSE)
+
+#Learning rate Scheduler
+schedule <- function(epoch, lr) {
+  if (epoch >= 4) {
+    new_lr <- lr * .98
+  } else {
+    new_lr <- lr * 1
+  }
+   return(new_lr)
+}
+cb_scheduler <- callback_learning_rate_scheduler(schedule)
+
+
+#Tensorboard 
+#dir.create("Log_Dir")
+log_dir <- "C:/Users/chris/Documents/Projects/GitHub R/SOA PA - Hackathon - 20230324/Log_Dir"
+log_files <- list.files(path=paste0(log_dir,"/train/"), pattern ="\\.v2$", full.names = TRUE)
+unlink(log_files)
+log_files <- list.files(path=paste0(log_dir,"/validation/"), pattern ="\\.v2$", full.names = TRUE)
+unlink(log_files)
+cb_tensorboard <-
+  callback_tensorboard(
+      log_dir = log_dir,
+      histogram_freq = 1,
+      embeddings_freq =  1,
+      write_grads = TRUE,
+      write_images = TRUE)
+tensorboard(log_dir, launch_browser = TRUE)
+
+#Lambda
+on_epoch_begin <- function(epoch, logs) {
+  print(paste("Beginning epoch", epoch+1))
+}
+
+on_epoch_end <- function(epoch, logs) {
+  print(paste("Ending epoch", epoch+1, "with logs:"))
+  print(logs)
+}
+
+# Create the lambda callback
+cb_lambda <- callback_lambda(
+  on_epoch_begin = on_epoch_begin,
+  on_epoch_end = on_epoch_end
+)
+
+#Reduce learning rate on plateau
+cb_reduce_lr_plateau <- callback_reduce_lr_on_plateau(
+  monitor = "val_loss",
+  factor = 0.1,
+  patience = 10
+)
+
+#Custom callback
+LossHistory <- R6::R6Class("LossHistory",
+  inherit = KerasCallback,
+  
+  public = list(
+    
+    losses = NULL,
+     
+    on_batch_end = function(batch, logs = list()) {
+      self$losses <- c(self$losses, logs[["loss"]])
+    }
+))
+cb_history <- LossHistory$new()
+
+callbacks_list <- list(cb_stop, cb_csv_log, cb_tensorboard, cb_reduce_lr_plateau, cb_scheduler, cb_history)
+cb_history$losses
+```
+
 ```{r }
 
 ```
