@@ -34,6 +34,7 @@ plot(as.raster(digit, max = 255))
 
 #Callback Functions
 ```{r }
+
 #Early stopping
 cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 5)
 
