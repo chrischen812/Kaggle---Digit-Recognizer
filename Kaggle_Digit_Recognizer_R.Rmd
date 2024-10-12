@@ -18,10 +18,7 @@ df.test=data.matrix (read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle
 library(keras)
 
 mnist <- dataset_mnist()
-train_images <- mnist$train$x
-train_labels <- mnist$train$y
-test_images <- mnist$test$x
-test_labels <- mnist$test$y
+c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
 
 ```
 
@@ -29,8 +26,8 @@ test_labels <- mnist$test$y
 ```{r }
 digit <- train_images[45,,]
 plot(as.raster(digit, max = 255))
-
 ```
+
 #Callback Functions
 ```{r }
 #Early stopping
@@ -146,11 +143,9 @@ history <- network %>% fit(
   batch_size = 128,
   validation_data = list(test_images, test_labels)
 )
-```
-
-```{r }
 plot (history)
 ```
+
 
 ```{r }
 convnet <- keras_model_sequential() %>%
