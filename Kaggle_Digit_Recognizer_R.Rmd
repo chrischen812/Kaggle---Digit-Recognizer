@@ -31,8 +31,6 @@ digit <- train_images[45,,]
 plot(as.raster(digit, max = 255))
 
 ```
-
-
 #Callback Functions
 ```{r }
 #Early stopping
@@ -111,21 +109,19 @@ callbacks_list <- list(cb_stop, cb_csv_log, cb_tensorboard, cb_reduce_lr_plateau
 cb_history$losses
 ```
 
-```{r }
+```{r, eval=FALSE }
 # Reshape datasets in Keras
 train_images <- array_reshape(train_images, c(60000, 28 * 28))
 train_images <- train_images / 255
 
 test_images <- array_reshape(test_images, c(10000, 28 * 28))
 test_images <- test_images / 255
-```
 
-```{r }
 train_labels <- to_categorical(train_labels)
 test_labels <- to_categorical(test_labels)
 ```
 
-```{r }
+```{r, eval=FALSE }
 network <- keras_model_sequential() %>%
   layer_dense(units = 512, activation = "relu", input_shape = c(784)) %>%
   layer_dense(units = 10, activation = "softmax")
@@ -142,9 +138,7 @@ network %>% fit(train_images, train_labels, epochs = 15, batch_size = 128)
 
 metrics <- network %>% evaluate(test_images, test_labels)
 metrics
-```
 
-```{r }
 history <- network %>% fit(
   train_images,
   train_labels,
@@ -156,10 +150,6 @@ history <- network %>% fit(
 
 ```{r }
 plot (history)
-```
-
-```{r }
-network %>% predict(test_images[1:10,]) %>% k_argmax()
 ```
 
 ```{r }
