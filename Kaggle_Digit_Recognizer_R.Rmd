@@ -272,20 +272,20 @@ pred
 Label=as.data.frame (as.vector (pred))
 ```
 
+
 ```{r }
+library(openxlsx)
+END_DATE <- Sys.Date()
+FILE_PATH <- paste0(dirname(rstudioapi::getActiveDocumentContext()$path), "/Output/Submission_",paste0((year(END_DATE)), format(END_DATE,"%m")),".csv")
 df.test=(read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/test.csv'))
 ImageId=as.data.frame(1:nrow(df.test))
 submission<-as.data.frame(cbind(ImageId,Label))
 colnames (submission)=c('ImageId','Label')
-
-
-write.csv(submission, file="submission.csv", row.names=F)
+write.csv(submission, file=FILE_PATH, row.names=F)
 ```
 
-```{r }
-head (submission)
-```
 
 ```{r }
 
 ```
+
