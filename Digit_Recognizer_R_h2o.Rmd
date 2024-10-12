@@ -53,8 +53,10 @@ library(h2o)
 
 ```{r }
 ## start a local h2o cluster
-localH2O = h2o.init(max_mem_size = '3g', # use 6GB of RAM of *GB available
-                    nthreads = -1) # use all CPUs 
+#localH2O = h2o.init(max_mem_size = '6g', nthreads = -1) # use all CPUs 
+
+localH2O = h2o.init()
+
 ```
 
 ```{r }

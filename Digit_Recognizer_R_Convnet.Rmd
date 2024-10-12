@@ -181,7 +181,8 @@ convnet %>% compile(
 convnet  %>% fit(
   train_images, 
   train_labels,
-  epochs = 15, batch_size=64
+  epochs = 20, 
+  batch_size=64
 )
 
 ```
@@ -195,7 +196,7 @@ results
 history <- convnet %>% fit(
   train_images,
   train_labels,
-  epochs = 15,
+  epochs = 20,
   batch_size = 64,
   validation_data = list(test_images, test_labels),
   callbacks = callbacks_list,
@@ -218,7 +219,7 @@ Label=as.data.frame (as.vector (pred))
 ```{r }
 library(openxlsx)
 END_DATE <- Sys.Date()
-FILE_PATH <- paste0(dirname(rstudioapi::getActiveDocumentContext()$path), "/Output/Submission_",format(END_DATE,"%Y%m"),".csv")
+FILE_PATH <- paste0(dirname(rstudioapi::getActiveDocumentContext()$path), "/Output/Submission_convnet_",format(END_DATE,"%Y%m"),".csv")
 df.test=(read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/test.csv'))
 ImageId=as.data.frame(1:nrow(df.test))
 submission<-as.data.frame(cbind(ImageId,Label))
