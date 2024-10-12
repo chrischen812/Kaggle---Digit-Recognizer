@@ -111,15 +111,12 @@ callbacks_list <- list(cb_stop, cb_csv_log, cb_tensorboard, cb_reduce_lr_plateau
 cb_history$losses
 ```
 
-
 ```{r }
 # Reshape datasets in Keras
 train_images <- array_reshape(train_images, c(60000, 28 * 28))
-#train_images=train_images %>% normalize()
 train_images <- train_images / 255
 
 test_images <- array_reshape(test_images, c(10000, 28 * 28))
-#test_images=test_images %>% normalize()
 test_images <- test_images / 255
 ```
 
@@ -128,18 +125,11 @@ train_labels <- to_categorical(train_labels)
 test_labels <- to_categorical(test_labels)
 ```
 
-
-```{r }
-str (train_images)
-```
-
 ```{r }
 network <- keras_model_sequential() %>%
   layer_dense(units = 512, activation = "relu", input_shape = c(784)) %>%
   layer_dense(units = 10, activation = "softmax")
-```
 
-```{r }
 Learning_Rate = .0005
 opt=optimizer_adamax(learning_rate = Learning_Rate)
 network %>% compile(
@@ -147,13 +137,9 @@ network %>% compile(
   loss = "categorical_crossentropy",
   metrics = c("accuracy")
 )
-```
 
-```{r }
 network %>% fit(train_images, train_labels, epochs = 15, batch_size = 128)
-```
 
-```{r }
 metrics <- network %>% evaluate(test_images, test_labels)
 metrics
 ```
@@ -265,7 +251,18 @@ write.csv(submission, file=FILE_PATH, row.names=F)
 ```
 
 
-```{r }
+#Solutons
+```{r, eval=FALSE }
+# Function to convert matrix to vector of column indices with 1
+convert_to_index_vector <- function(row) {
+  which(row == 1)
+}
+
+# Apply the function to each row
+index_vector <- apply(test_labels, 1, convert_to_index_vector)
+print(index_vector)
+ImageId=as.data.frame(1:nrow(index_vector))
+submission<-as.data.frame(cbind(ImageId,index_vector))
 
 ```
 
