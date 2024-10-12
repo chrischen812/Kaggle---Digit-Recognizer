@@ -127,6 +127,7 @@ train_labels <- to_categorical(train_labels)
 test_labels <- to_categorical(test_labels)
 ```
 
+
 ```{r }
 str (train_images)
 ```
