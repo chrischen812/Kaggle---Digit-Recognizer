@@ -4,7 +4,7 @@
 
 
   
-##Resource
+## Resource
 * CovNet intro by Dr. Chris Deotte
   * https://www.ccom.ucsd.edu/~cdeotte/papers/Robots.pdf
   * https://www.kaggle.com/code/cdeotte/25-million-images-0-99757-mnist
