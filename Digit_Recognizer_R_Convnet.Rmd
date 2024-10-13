@@ -31,7 +31,7 @@ plot(as.raster(digit, max = 255))
 #Callback Functions
 ```{r }
 #Early stopping
-cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 8)
+cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 2)
 
 #CSV Logging
 version <- format(Sys.time(), "%Y%m%d")
@@ -150,23 +150,18 @@ plot (history)
 convnet <- keras_model_sequential() %>%
   layer_conv_2d(filters = 32, kernel_size = c(3, 3), 
                 activation = "relu",
-                input_shape = c(28, 28, 1),
-                kernel_initializer = initializer_lecun_normal(seed = 123)) %>%
+                input_shape = c(28, 28, 1)) %>%
   layer_max_pooling_2d(pool_size = c(2, 2)) %>%
   layer_conv_2d(filters = 64, 
                 kernel_size = c(3, 3), 
-                activation = "relu",
-                kernel_initializer = initializer_lecun_normal(seed = 123)) %>%
+                activation = "relu") %>%
   layer_max_pooling_2d(pool_size = c(2, 2)) %>%
   layer_conv_2d(filters = 64, 
                 kernel_size = c(3, 3), 
-                activation = "relu",
-                kernel_initializer = initializer_lecun_normal(seed = 123)) %>%
+                activation = "relu") %>%
   layer_flatten() %>%
-  layer_dense(units = 64, 
-              activation = "relu") %>%
   layer_dense(units = 10, 
-              activation = "softmax")
+              activation = "relu")
 ```
 
 ```{r }
@@ -208,9 +203,19 @@ plot(history)
 ```
 
 #Retrain
-```{r }
+```{r, eval=FALSE}
 eps3 = ifelse(cb_stop$stopped_epoch > 0, cb_stop$stopped_epoch, eps)
 eps3
+
+hist3 <- convnet %>%
+  fit(
+    x_train,
+    y_train,
+    batch_size = batch_size,
+    epochs = eps3,
+    shuffle = TRUE
+  )
+
 ```
 
 ```{r }
