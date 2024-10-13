@@ -160,8 +160,10 @@ convnet <- keras_model_sequential() %>%
                 kernel_size = c(3, 3), 
                 activation = "relu") %>%
   layer_flatten() %>%
+  layer_dense(units = 64, 
+              activation = "relu") %>%
   layer_dense(units = 10, 
-              activation = "relu")
+              activation = "softmax")
 ```
 
 ```{r }
@@ -203,16 +205,15 @@ plot(history)
 ```
 
 #Retrain
-```{r, eval=FALSE}
-eps3 = ifelse(cb_stop$stopped_epoch > 0, cb_stop$stopped_epoch, eps)
-eps3
+```{r }
+eps2 = ifelse(cb_stop$stopped_epoch > 0, cb_stop$stopped_epoch, eps)
 
-hist3 <- convnet %>%
+history_2 <- convnet %>%
   fit(
-    x_train,
-    y_train,
-    batch_size = batch_size,
-    epochs = eps3,
+    train_images,
+    train_labels,
+    batch_size = 128,
+    epochs = eps2,
     shuffle = TRUE
   )
 
@@ -226,7 +227,7 @@ dim(test) <-c(nrow(test),784)
 convnet_test = array_reshape(test, c(28000, 28, 28,1))
 
 pred=convnet %>% predict(convnet_test) %>% k_argmax()
-Label=as.data.frame (as.vector (pred))
+Label=as.data.frame(as.vector (pred))
 ```
 
 ```{r }
