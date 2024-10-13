@@ -34,8 +34,8 @@ plot(as.raster(digit, max = 255))
 cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 8)
 
 #CSV Logging
-version <- format(Sys.time(), "%Y%m%d%H%M")
-cb_csv_log <- callback_csv_logger(paste0("C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recogn/Log_Dir/log_", version ,".csv"), separator= ",", append = FALSE)
+version <- format(Sys.time(), "%Y%m%d")
+cb_csv_log <- callback_csv_logger(paste0("C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Log_Dir/log_", version ,".csv"), separator= ",", append = FALSE)
 
 #Learning rate Scheduler
 schedule <- function(epoch, lr) {
@@ -51,7 +51,7 @@ cb_scheduler <- callback_learning_rate_scheduler(schedule)
 
 #Tensorboard 
 #dir.create("Log_Dir")
-log_dir <- "C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recogn/Log_Dir"
+log_dir <- "C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Log_Dir"
 log_files <- list.files(path=paste0(log_dir,"/train/"), pattern ="\\.v2$", full.names = TRUE)
 unlink(log_files)
 log_files <- list.files(path=paste0(log_dir,"/validation/"), pattern ="\\.v2$", full.names = TRUE)
@@ -103,7 +103,7 @@ LossHistory <- R6::R6Class("LossHistory",
 cb_history <- LossHistory$new()
 
 callbacks_list <- list(cb_stop, cb_csv_log, cb_tensorboard, cb_reduce_lr_plateau, cb_scheduler, cb_history)
-cb_history$losses
+
 ```
 
 ```{r, eval=FALSE }
