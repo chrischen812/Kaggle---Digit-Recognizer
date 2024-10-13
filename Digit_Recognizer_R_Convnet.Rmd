@@ -188,19 +188,8 @@ convnet %>% compile(
   metrics = c("accuracy")
 )
 
-convnet  %>% fit(
-  train_images, 
-  train_labels,
-  epochs = 20, 
-  batch_size = 64
-)
-
 ```
 
-```{r }
-results <- convnet %>% evaluate(test_images, test_labels)
-results
-```
 
 ```{r }
 history <- convnet %>% fit(
@@ -216,6 +205,12 @@ results <- convnet %>% evaluate(test_images, test_labels)
 results
 
 plot(history)
+```
+
+#Retrain
+```{r }
+eps3 = ifelse(cb_stop$stopped_epoch > 0, cb_stop$stopped_epoch, eps)
+eps3
 ```
 
 ```{r }
