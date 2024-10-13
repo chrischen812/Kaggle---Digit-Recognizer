@@ -14,13 +14,6 @@ train=read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit
 test=data.matrix (read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/test.csv'))
 ```
 
-```{r }
-library(keras)
-
-mnist <- dataset_mnist()
-c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
-
-```
 
 #Visualize the digits using raster fucntion
 ```{r }

@@ -222,7 +222,7 @@ Label=as.data.frame (as.vector (pred))
 ```{r }
 library(openxlsx)
 END_DATE <- Sys.Date()
-FILE_PATH <- paste0(dirname(rstudioapi::getActiveDocumentContext()$path), "/Output/Submission_convnet_",format(END_DATE,"%Y%m"),".csv")
+FILE_PATH <- paste0(dirname(rstudioapi::getActiveDocumentContext()$path), "/Output/Submission_convnet_",format(END_DATE,"%Y%m%d"),".csv")
 df.test=(read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Dataset/test.csv'))
 ImageId=as.data.frame(1:nrow(df.test))
 submission<-as.data.frame(cbind(ImageId,Label))
