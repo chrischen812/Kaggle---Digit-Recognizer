@@ -56,7 +56,6 @@ library(h2o)
 #localH2O = h2o.init(max_mem_size = '6g', nthreads = -1) # use all CPUs 
 
 localH2O = h2o.init()
-
 ```
 
 ```{r }

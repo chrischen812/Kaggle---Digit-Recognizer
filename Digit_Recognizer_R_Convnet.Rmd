@@ -228,5 +228,6 @@ ImageId=as.data.frame(1:nrow(df.test))
 submission<-as.data.frame(cbind(ImageId,Label))
 colnames (submission)=c('ImageId','Label')
 write.csv(submission, file=FILE_PATH, row.names=F)
+
 ```
 
