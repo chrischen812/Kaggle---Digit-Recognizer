@@ -24,8 +24,10 @@ c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
 
 #Visualize the digits using raster fucntion
 ```{r }
-digit <- train_images[45,,]
+digit <- train_images[8695,,]
 plot(as.raster(digit, max = 255))
+
+
 ```
 
 #Callback Functions
@@ -217,6 +219,7 @@ history_2 <- convnet %>%
     shuffle = TRUE
   )
 
+plot(history_2)
 ```
 
 ```{r }
