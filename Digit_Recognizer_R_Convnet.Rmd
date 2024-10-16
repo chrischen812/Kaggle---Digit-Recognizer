@@ -197,7 +197,6 @@ history <- convnet %>% fit(
   epochs = 20,
   batch_size = 64,
   validation_data = list(test_images, test_labels),
-  callbacks = callbacks_list,
 )
 
 results <- convnet %>% evaluate(test_images, test_labels)
