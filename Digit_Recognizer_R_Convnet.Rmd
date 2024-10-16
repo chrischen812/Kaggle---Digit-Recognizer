@@ -207,7 +207,7 @@ plot(history)
 
 #Retrain
 ```{r }
-eps2 = ifelse(cb_stop$stopped_epoch > 0, cb_stop$stopped_epoch, eps)
+eps2 = ifelse(cb_stop$stopped_epoch > 0, cb_stop$stopped_epoch, 20)
 
 history_2 <- convnet %>%
   fit(
