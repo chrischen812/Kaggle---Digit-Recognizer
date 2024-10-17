@@ -217,6 +217,7 @@ history_2 <- convnet %>%
     epochs = eps2,
     shuffle = TRUE
   )
+
 plot(history_2)
 ```
 
