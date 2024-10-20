@@ -26,7 +26,6 @@ c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
 ```{r }
 digit <- train_images[456,,]
 plot(as.raster(digit, max = 255))
-
 ```
 
 #Callback Functions
