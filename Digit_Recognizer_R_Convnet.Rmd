@@ -24,7 +24,7 @@ c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
 
 #Visualize the digits using raster fucntion
 ```{r }
-digit <- train_images[8695,,]
+digit <- train_images[456,,]
 plot(as.raster(digit, max = 255))
 
 ```
