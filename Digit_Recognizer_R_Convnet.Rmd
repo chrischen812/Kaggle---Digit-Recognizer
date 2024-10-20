@@ -116,7 +116,6 @@ test_images <- test_images / 255
 
 train_labels <- to_categorical(train_labels)
 test_labels <- to_categorical(test_labels)
-
 ```
 
 ```{r, eval=FALSE }
