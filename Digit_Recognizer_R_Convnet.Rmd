@@ -34,7 +34,6 @@ plot(as.raster(digit, max = 255))
 #Early stopping
 cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 2)
 
-
 #CSV Logging
 version <- format(Sys.time(), "%Y%m%d")
 cb_csv_log <- callback_csv_logger(paste0("C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Log_Dir/log_", version ,".csv"), separator= ",", append = FALSE)
