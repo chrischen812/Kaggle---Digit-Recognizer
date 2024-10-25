@@ -40,7 +40,7 @@ cb_csv_log <- callback_csv_logger(paste0("C:/Users/chris/Documents/Projects/GitH
 #Learning rate Scheduler
 schedule <- function(epoch, lr) {
   if (epoch >= 4) {
-    new_lr <- lr * .98
+    new_lr <- lr * 1
   } else {
     new_lr <- lr * 1
   }
