@@ -19,7 +19,6 @@ library(keras)
 
 mnist <- dataset_mnist()
 c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
-
 ```
 
 #Visualize the digits using raster fucntion
