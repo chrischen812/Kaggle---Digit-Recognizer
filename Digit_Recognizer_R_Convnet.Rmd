@@ -30,7 +30,7 @@ plot(as.raster(digit, max = 255))
 #Callback Functions
 ```{r }
 #Early stopping
-cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 2)
+cb_stop <- callback_early_stopping(monitor = 'val_loss', patience = 3)
 
 #CSV Logging
 version <- format(Sys.time(), "%Y%m%d")
