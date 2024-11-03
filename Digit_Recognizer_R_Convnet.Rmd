@@ -16,7 +16,6 @@ df.test=data.matrix (read.csv('C:/Users/chris/Documents/Projects/GitHub R/Kaggle
 
 ```{r }
 library(keras)
-
 mnist <- dataset_mnist()
 c(c(train_images, train_labels), c(test_images, test_labels)) %<-% mnist
 ```
