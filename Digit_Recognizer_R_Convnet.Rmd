@@ -214,6 +214,7 @@ history_2 <- convnet %>%
     shuffle = TRUE
   )
 plot(history_2)
+
 ```
 
 ```{r }
