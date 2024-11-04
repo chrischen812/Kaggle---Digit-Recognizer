@@ -162,6 +162,7 @@ convnet <- keras_model_sequential() %>%
               activation = "relu") %>%
   layer_dense(units = 10, 
               activation = "softmax")
+
 ```
 
 ```{r }
