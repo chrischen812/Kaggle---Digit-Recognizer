@@ -49,7 +49,6 @@ schedule <- function(epoch, lr) {
 }
 cb_scheduler <- callback_learning_rate_scheduler(schedule)
 
-
 #Tensorboard 
 #dir.create("Log_Dir")
 log_dir <- "C:/Users/chris/Documents/Projects/GitHub R/Kaggle/Kaggle---Digit-Recognizer/Log_Dir"
