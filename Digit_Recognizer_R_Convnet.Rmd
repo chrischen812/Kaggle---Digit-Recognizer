@@ -229,6 +229,7 @@ convnet_test = array_reshape(test, c(28000, 28, 28,1))
 
 pred=convnet %>% predict(convnet_test) %>% k_argmax()
 Label=as.data.frame(as.vector (pred))
+
 ```
 
 ```{r }
